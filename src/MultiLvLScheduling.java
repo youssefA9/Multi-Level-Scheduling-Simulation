@@ -109,12 +109,10 @@ public class MultiLvLScheduling {
                     }
                 }
             } else {
-
                 processEx = new ProcessEx(timer, timer + ProcessesQ2.get(i).BurstTime, ProcessesQ2.get(i));
                 processExes.add(processEx);
                 timer += ProcessesQ2.get(i).BurstTime;
                 ProcessesQ2.remove(i);
-
             }
         }
 
@@ -129,6 +127,17 @@ public class MultiLvLScheduling {
             }
             if (ProcessesQ2.size() > 0) {
                 FCFS();
+            }
+            if (ProcessesQ1.size() != 0) {
+                if (ProcessesQ2.size() != 0) {
+                    if (ProcessesQ1.get(0).ArrivalTime < ProcessesQ2.get(0).ArrivalTime)
+                        timer = ProcessesQ1.get(0).ArrivalTime;
+                } else {
+                    timer = ProcessesQ1.get(0).ArrivalTime;
+                }
+
+            } else if (ProcessesQ2.size() != 0) {
+                timer = ProcessesQ2.get(0).ArrivalTime;
             }
         }
     }
